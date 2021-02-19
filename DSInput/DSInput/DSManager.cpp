@@ -1,4 +1,4 @@
-#include "DSManager.h"
+ï»¿#include "DSManager.h"
 #include "DS4Device.h"
 #include "DSenseDevice.h"
 
@@ -22,25 +22,25 @@ void DSManager::GetDevice()
 		PSP_INTERFACE_DEVICE_DETAIL_DATA detail;
 		DWORD size = 0;
 
-		//ƒfƒoƒCƒXƒCƒ“ƒ^ƒtƒF[ƒXÚ×î•ñ‚Ìƒƒ‚ƒŠƒTƒCƒY‚ğæ“¾
+		//è·å–è®¾å¤‡æ¥å£è¯¦ç»†ä¿¡æ¯çš„è®°å½•å¤§å°
 		SetupDiGetDeviceInterfaceDetail(hdevInfo, &data, NULL, 0, &size, NULL);
 
-		//ƒfƒoƒCƒXƒCƒ“ƒ^[ƒtƒF[ƒXÚ×î•ñ‚Ì—Ìˆæ‚ğŠm•Û‚·‚é
+		//ç¡®ä¿è®¾å¤‡æ¥å£è¯¦ç»†ä¿¡æ¯çš„åŒºåŸŸ
 		detail = new SP_INTERFACE_DEVICE_DETAIL_DATA[size];
 		if (detail)
 		{
 			DWORD len = 0;
 			memset(detail, 0, size);
 
-			//ƒfƒoƒCƒXƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌÚ×î•ñ‚ğ“Ç‚Ş
+			//è¯»å–æ¥å£çš„è¯¦ç»†ä¿¡æ¯
 			detail->cbSize = sizeof(SP_INTERFACE_DEVICE_DETAIL_DATA);
 			if (SetupDiGetInterfaceDeviceDetail(hdevInfo, &data, detail, size, &len, NULL))
 			{
-				//HidƒfƒoƒCƒX‚Ìì¬
+				//åˆ¶ä½œHIDè®¾å¤‡
 				HidDevice device = device.Create(detail->DevicePath, 0);
 
 				if (device.GetVendorID() == 0x54C && device.GetProductID() == 0xce6) {
-					//	PS5ƒRƒ“ƒgƒ[ƒ‰[
+					//	PS5æ§åˆ¶å™¨
 					for (int i = 0; i < 4; i++) {
 						if (!dsDevice[i]) {
 							dsDevice[i] = new DSenseDevice(device, i);
@@ -52,7 +52,7 @@ void DSManager::GetDevice()
 				{
 					for (int i = 0; i < 4; i++) {
 						if (!dsDevice[i]) {
-							//PS4ƒRƒ“ƒgƒ[ƒ‰[‚Æ‚µ‚Äİ’è
+							//ä½œä¸ºPS4æ§åˆ¶å™¨è®¾å®š
 							dsDevice[i] = new DS4Device(device, i);
 							break;
 						}
@@ -60,7 +60,7 @@ void DSManager::GetDevice()
 				}
 				else
 				{
-					//ƒfƒoƒCƒX‚Ì”jŠü
+					//è®¾å¤‡çš„åºŸå¼ƒ
 					device.Destroy();
 				}
 			}

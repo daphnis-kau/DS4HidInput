@@ -1,8 +1,8 @@
-#include "HidDevice.h"
+ï»¿#include "HidDevice.h"
 
 HidDevice HidDevice::Create(char * path, int id)
 {
-	//ƒpƒX‚ÌƒRƒs[
+	//å¤åˆ¶è·¯å¾„
 	size_t size = 1;
 	for (UINT i = 0; path[i] != '\0'; i++)
 	{
@@ -15,7 +15,7 @@ HidDevice HidDevice::Create(char * path, int id)
 		devicePath[i] = path[i];
 	}
 
-	//ƒfƒoƒCƒXƒnƒ“ƒhƒ‹‚Ìì¬
+	//è®¾å¤‡æ‰‹æŸ„çš„åˆ¶ä½œ
 	deviceHandle = CreateFile(
 		devicePath,
 		(GENERIC_READ | GENERIC_WRITE),
@@ -48,7 +48,7 @@ HIDP_CAPS HidDevice::GetCapabilities() noexcept
 	PHIDP_PREPARSED_DATA preparsedData;
 	if (HidD_GetPreparsedData(deviceHandle, &preparsedData))
 	{
-		//Šî–{î•ñ‚Ìæ“¾
+		//åŸºæœ¬ä¿¡æ¯çš„è·å–
 		if (HIDP_STATUS_SUCCESS == HidP_GetCaps(preparsedData, &capabilities))
 		{
 			isCapabilities = true;

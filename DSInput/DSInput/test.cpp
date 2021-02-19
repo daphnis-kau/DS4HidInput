@@ -3,14 +3,13 @@
 
 int main()
 {
-	DS4Manager ds4manager;
+	DSManager ds4manager;
 	ds4manager.GetDevice();
-	int a = 0;
-	scanf_s("%d", &a);
+	int a = 1;
 	while ( a)
 	{
 		ds4manager.InputUpdate();
-		scanf_s("%d", &a);
+		Sleep( 10 );
 	}
 	
 	ds4manager.Destroy();

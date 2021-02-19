@@ -1,4 +1,4 @@
-#include "DS4Device.h"
+ï»¿#include "DS4Device.h"
 #include "DSAxisType.h"
 
 const int BT_OUTPUT_REPORT_LENGTH = 78;
@@ -34,25 +34,25 @@ DS4Device::DS4Device(HidDevice device, int controllerId) noexcept
 
 	if (inputDataLength == 547)
 	{
-		outputData[0] = 0x11;//ƒŒƒ|[ƒgID
-		outputData[1] = 0x80;//’è”
-		outputData[3] = 0xff;//’è”
-		outputData[6] = 0x00;//Rƒ‚[ƒ^
-		outputData[7] = 0x00;//Lƒ‚[ƒ^
+		outputData[0] = 0x11;//æŠ¥å‘Š
+		outputData[1] = 0x80;//å¸¸æ•°
+		outputData[3] = 0xff;//å¸¸æ•°
+		outputData[6] = 0x00;//Ré©¬è¾¾
+		outputData[7] = 0x00;//Lé©¬è¾¾
 		outputData[8] = 0x00;//Red
 		outputData[9] = 0x00;//G
 		outputData[10] = 0x00;//B
-		outputData[11] = 0x00;//ƒtƒ‰ƒbƒVƒ…on
-		outputData[12] = 0x00;//ƒtƒ‰ƒbƒVƒ…off
+		outputData[11] = 0x00;//é—ªå…‰ç‚¹
+		outputData[12] = 0x00;//é—ªå…‰ç‚¹
 	}
 	else
 	{
-		outputData[0] = 0x05;//ƒŒƒ|[ƒgID
-		outputData[1] = 0x03;//ƒ‚[ƒh(0:ƒIƒt,1:—h‚ê‚Ì‚İ,2:Œõ‚¾‚¯,3:—¼•û)
-		outputData[2] = 0x00;//LEDƒ‚[ƒh(Å‰ºˆÊ‚ª0:‚¸‚Á‚Æ”­s,1:ˆêu)
-		outputData[3] = 0x00;//‰üs
-		outputData[4] = 0x00;//Rƒ‚[ƒ^
-		outputData[5] = 0x00;//Lƒ‚[ƒ^
+		outputData[0] = 0x05;//æŠ¥å‘ŠID
+		outputData[1] = 0x03;//æ¨¡å¼ï¼ˆ0ï¼šå…³æ–­ï¼Œ1ï¼šä»…æ™ƒåŠ¨ï¼Œ2ï¼šå…‰ï¼Œ3ï¼šä¸¤è€…ï¼‰
+		outputData[2] = 0x00;//LEDæ¨¡å¼ï¼ˆæœ€ä¸‹ä½0:ä¸€ç›´å‘è¡Œï¼Œ1:ä¸€ç¬ï¼‰
+		outputData[3] = 0x00;//æ”¹è¡Œ
+		outputData[4] = 0x00;//Ré©¬è¾¾
+		outputData[5] = 0x00;//Lé©¬è¾¾
 	}
 
 	switch (controllerId)
@@ -190,13 +190,13 @@ bool DS4Device::GetInputReport()
 		status.l2 = (data & 0x04) == 0x04 ? 255.0f : 0.0f;
 		status.r2 = (data & 0x08) == 0x08 ? 255.0f : 0.0f;
 
-		//¶ƒXƒeƒBƒbƒN‚Ì“ü—Í‚Ì•Û‘¶
+		//ä¿å­˜å·¦æ£’è¾“å…¥
 		data = inputData[3];
 		status.leftStickX = (data - 127) / 127.0f;
 		data = inputData[4];
 		status.leftStickY = (data - 127) / 127.0f;
 
-		//‰EƒXƒeƒBƒbƒN‚Ì“ü—Í‚Ì•Û‘¶
+		//ä¿å­˜å³æ£’è¾“å…¥
 		data = inputData[5];
 		status.rightStickX = (data - 127) / 127.0f;
 		data = inputData[6];
@@ -205,7 +205,7 @@ bool DS4Device::GetInputReport()
 	}
 	else
 	{
-		//ƒ{ƒ^ƒ“‚Ì“ü—Í‚Ì•Û‘¶
+		//ä¿å­˜æŒ‰é’®è¾“å…¥
 		auto data = inputData[5];
 		status.square.ChangeStatus((data & 0x10) == 0x10);
 		status.cross.ChangeStatus((data & 0x20) == 0x20);
@@ -257,19 +257,19 @@ bool DS4Device::GetInputReport()
 		status.l3.ChangeStatus((data & 0x40) == 0x40);
 		status.r3.ChangeStatus((data & 0x80) == 0x80);
 
-		//¶ƒXƒeƒBƒbƒN‚Ì“ü—Í‚Ì•Û‘¶
+		//ä¿å­˜å·¦æ£’è¾“å…¥
 		data = inputData[1];
 		status.leftStickX = (data - 127) / 127.0f;
 		data = inputData[2];
 		status.leftStickY = (data - 127) / 127.0f;
 
-		//‰EƒXƒeƒBƒbƒN‚Ì“ü—Í‚Ì•Û‘¶
+		//ä¿å­˜å³æ£’è¾“å…¥
 		data = inputData[3];
 		status.rightStickX = (data - 127) / 127.0f;
 		data = inputData[4];
 		status.rightStickY = (data - 127) / 127.0f;
 
-		//L2‚ÆR2‚Ì“ü—Í‚Ì•Û‘¶
+		//ä¿å­˜L2å’ŒR2çš„è¾“å…¥
 		data = inputData[8];
 		status.l2 = data / 255.0f;
 		data = inputData[9];

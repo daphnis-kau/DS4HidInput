@@ -1,48 +1,48 @@
-#pragma once
+ï»¿#pragma once
 #include "DSManager.h"
 #define EXPORT_API __declspec(dllexport)
 
 extern "C" 
 {
-	//ŠÇ—ƒXƒ^[ƒg
+	//å¼€å§‹ç®¡ç†
 	EXPORT_API bool StartDS4();
 
-	//ƒRƒ“ƒgƒ[ƒ‰‚Ìæ“¾
+	//è·å–æ§åˆ¶å™¨
 	EXPORT_API bool GetController();
 
-	//ƒRƒ“ƒgƒ[ƒ‰‚Ìƒ`ƒFƒbƒN
+	//æ£€æŸ¥æ§åˆ¶å™¨
 	EXPORT_API bool ControllerCheck(int id);
 
-	//F‚Ì•ÏX
+	//é¢œè‰²å˜æ›´
 	EXPORT_API bool ChangeColor(int id, const UCHAR r, const UCHAR g, const UCHAR b);
 
-	//ƒvƒŒƒCƒ„[ƒ‰ƒCƒg‚Ì•ÏX
+	//ç©å®¶ç¯çš„å˜æ›´
 	EXPORT_API bool ChangePlayerLight(int id, const UCHAR val);
 
-	//U“®‚Ì•ÏX
+	//æŒ¯åŠ¨çš„å˜æ›´
 	EXPORT_API void ChangeVibration(int id, UCHAR right, UCHAR left);
 
-	//ƒgƒŠƒK[‚ÌƒƒbƒN
+	//è§¦å‘é”å®š
 	EXPORT_API void ChangeTriggerLock(int id, UCHAR rMode, UCHAR right, UCHAR lMode, UCHAR left);
 
-	//ƒAƒEƒgƒvƒbƒgƒŒƒ|[ƒg‚Ì‘—M
+	//è¾“å‡ºæŠ¥å‘Šçš„å‘é€
 	EXPORT_API void SendOutput(int id);
 
-	//ƒŒƒ|[ƒg‚ÌXV
+	//æŠ¥å‘Šçš„æ›´æ–°
 	EXPORT_API bool UpdateInputReport();
 
-	//ƒ{ƒ^ƒ“‚Ìæ“¾
+	//æŒ‰é’®çš„å–å¾—
 	EXPORT_API bool GetButton(int id, UCHAR keyType);
 
-	//ƒ{ƒ^ƒ“ƒ_ƒEƒ“‚Ìæ“¾
+	//æŒ‰é’®ä¸‹é™çš„å–å¾—
 	EXPORT_API bool GetButtonDown(int id, UCHAR keyType);
 
-	//ƒ{ƒ^ƒ“ƒAƒbƒv‚Ìæ“¾
+	//æŒ‰é’®ä¸Šå‡çš„å–å¾—
 	EXPORT_API bool GetButtonUp(int id, UCHAR keyType);
 
-	//²‚Ìæ“¾
+	//å–å¾—è½´
 	EXPORT_API float GetAxis(int id, UCHAR keyType);
 
-	//ŠÇ—I—¹
+	//ç®¡ç†ç»“æŸ
 	EXPORT_API bool EndDS4();
 }

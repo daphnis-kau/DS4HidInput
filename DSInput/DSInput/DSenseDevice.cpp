@@ -1,4 +1,4 @@
-#include "DSenseDevice.h"
+ï»¿#include "DSenseDevice.h"
 #include "DSAxisType.h"
 
 DSenseDevice::DSenseDevice(HidDevice device, int controllerId)
@@ -17,28 +17,28 @@ DSenseDevice::DSenseDevice(HidDevice device, int controllerId)
 		outputData[i] = 0x00;
 	}
 
-	outputData[0] = 0x2;//ƒŒƒ|[ƒgID
-	outputData[1] = 0xff;//ffŒÅ’è‚©
-	outputData[2] = 0x17;//ƒ‰ƒCƒgƒo[ ƒvƒŒƒCƒ„[ƒ‰ƒ“ƒvİ’è  : 0x08 : [“d 
+	outputData[0] = 0x2;//æŠ¥å‘ŠID
+	outputData[1] = 0xff;//ffå›ºå®šå—
+	outputData[2] = 0x17;//ç¯æ¡æ’­æ”¾å™¨ç¯è®¾å®šï¼š0x08:å……ç”µ
 
-	outputData[3] = 0x00;//Rƒ‚[ƒ^ 0`FF
-	outputData[4] = 0x00;//Lƒ‚[ƒ^ 0`FF
+	outputData[3] = 0x00;//Ré©¬è¾¾0ï½FF
+	outputData[4] = 0x00;//Lé©¬è¾¾0ï½FF
 
-	outputData[9] = 0x00;// ƒ}ƒCƒNƒ~ƒ…[ƒgƒ‰ƒCƒg 0 : Á“” , 1 : “_“”, 2 : “_–Å
+	outputData[9] = 0x00;// éº¦å…‹é£é™éŸ³ç¯0:ç†„ç¯ï¼Œ1:ç‚¹äº®ï¼Œ2:é—ªçƒ
 
-	outputData[10] = 0x00;// LRƒtƒ‰ƒO
+	outputData[10] = 0x00;// LRæ ‡å¿—
 
-	outputData[11] = 0x0; // RƒgƒŠƒK[ 1:’ïR 2:ƒƒbƒN
-	outputData[12] = 0x00; //RƒgƒŠƒK[ ãˆÊbit‚ªƒƒbƒN‚ÌˆÊ’u’l‚ª‘å‚«‚­‚È‚é‚ÆˆÊ’u‚ª‰º‚É‚È‚é
+	outputData[11] = 0x0; // Rè§¦å‘1:ç”µé˜»2:é”å®š
+	outputData[12] = 0x00; //Rè§¦å‘å™¨é«˜ä½bitåœ¨é”å®šçš„ä½ç½®å€¼å˜å¤§æ—¶ä½ç½®å˜ä½
 
-	outputData[22] = 0x00; // LƒgƒŠƒK[
-	outputData[23] = 0x00; // LƒgƒŠƒK[
+	outputData[22] = 0x00; // Lè§¦å‘1:ç”µé˜»2:é”å®š
+	outputData[23] = 0x00; // Lè§¦å‘å™¨é«˜ä½bitåœ¨é”å®šçš„ä½ç½®å€¼å˜å¤§æ—¶ä½ç½®å˜ä½
 
-	outputData[44] = 0x00; // ƒvƒŒƒCƒ„[ƒ‰ƒCƒg1bit‚Ã‚Â‚Å“_“”‚·‚éAÅ‘å5bit
+	outputData[44] = 0x00; // æ’­æ”¾å™¨ç¯æ¯1æ¯”ç‰¹ç‚¹äº®ï¼Œæœ€å¤§5æ¯”ç‰¹
 
-	outputData[45] = 0x00; // Ô
-	outputData[46] = 0x00; // —Î
-	outputData[47] = 0x00; // Â
+	outputData[45] = 0x00; // èµ¤
+	outputData[46] = 0x00; // ç·‘
+	outputData[47] = 0x00; // é’
 
 
 	switch (controllerId)
@@ -142,19 +142,19 @@ bool DSenseDevice::GetInputReport()
 	data = inputData[10];
 	status.home.ChangeStatus(data == 0x01 ? true : false);
 
-	//¶ƒXƒeƒBƒbƒN‚Ì“ü—Í‚Ì•Û‘¶
+	//å·¦æ£’è¾“å…¥çš„ä¿å­˜
 	data = inputData[1];
 	status.leftStickX = (data - 127) / 127.0f;
 	data = inputData[2];
 	status.leftStickY = (data - 127) / 127.0f;
 
-	//‰EƒXƒeƒBƒbƒN‚Ì“ü—Í‚Ì•Û‘¶
+	//ä¿å­˜å³æ£’çš„è¾“å…¥
 	data = inputData[3];
 	status.rightStickX = (data - 127) / 127.0f;
 	data = inputData[4];
 	status.rightStickY = (data - 127) / 127.0f;
 
-	//L2‚ÆR2‚Ì“ü—Í‚Ì•Û‘¶
+	//L2å’ŒR2çš„è¾“å…¥çš„ä¿å­˜
 	data = inputData[5];
 	status.l2 = data / 255.0f;
 	data = inputData[6];
@@ -184,10 +184,10 @@ void DSenseDevice::ChangeVibration(UCHAR right, UCHAR left)
 void DSenseDevice::ChangeTriggerLock(UCHAR rMode, UCHAR right, UCHAR lMode, UCHAR left)
 {
 	outputData[11] = rMode;
-	outputData[12] = right; //RƒgƒŠƒK[ ãˆÊbit‚ªƒƒbƒN‚ÌˆÊ’u’l‚ª‘å‚«‚­‚È‚é‚ÆˆÊ’u‚ª‰º‚É‚È‚é
+	outputData[12] = right; //Rè§¦å‘ä¸Šä½bitåœ¨é”å®šçš„ä½ç½®å€¼å˜å¤§æ—¶ä½ç½®å˜ä½
 
-	outputData[22] = lMode; // LƒgƒŠƒK[
-	outputData[23] = left; // LƒgƒŠƒK[
+	outputData[22] = lMode; // Lè§¦å‘
+	outputData[23] = left; // Lè§¦å‘
 }
 
 void DSenseDevice::ChangePlayerLight(UCHAR val)
